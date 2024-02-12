@@ -12,8 +12,8 @@ var Game = require("./gameStage")
 const { Pool } = require("pg")
 
 const pool = new Pool({
-    user: "postgres",
-    host: "localhost",
+    user: "root",
+    host: "db",
     database: "webdb",
     password: "password",
     port: 5432,
@@ -32,16 +32,6 @@ var playerAction = {}
 serverInterval = setInterval(function () {
     var worldJson = JSON.parse(gameState)
 }, 20)
-
-// function updatePlayerAction(bulletObj) {
-//     for (const key in playerAction) {
-//         for (var i = 0; i < playerAction[key]; i++) {
-//             if (bulletObj.id == playerAction[key][i].id) {
-//                 playerAction[key].splice(i, 1)
-//             }
-//         }
-//     }
-// }
 
 function removeActors(actorJson, world) {
     var removeObj = actorJson["remove"]
@@ -358,7 +348,7 @@ app.post("/api/auth/test", authenticateToken, function (req, res) {
     res.json({ message: "got to /api/auth/test" })
 })
 
-app.use("/", express.static("static_content"))
+app.use("/", express.static("build"))
 
 app.listen(port, function () {
     console.log("Example app listening on port " + port)
